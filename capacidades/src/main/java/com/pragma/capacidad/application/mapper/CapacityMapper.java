@@ -8,7 +8,9 @@ import org.springframework.stereotype.Component;
 public class CapacityMapper {
 
     public Capacity toDomain(CapacityDto dto) {
-        if (dto == null) return null;
+        if (dto == null) {
+            return null;
+        }
         return Capacity.builder()
                 .id(dto.getId())
                 .name(dto.getName())
@@ -18,7 +20,9 @@ public class CapacityMapper {
     }
 
     public CapacityDto toDto(Capacity domain) {
-        if (domain == null) return null;
+        if (domain == null) {
+            return null;
+        }
         CapacityDto dto = new CapacityDto();
         dto.setId(domain.getId());
         dto.setName(domain.getName());

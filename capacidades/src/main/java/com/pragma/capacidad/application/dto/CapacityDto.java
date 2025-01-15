@@ -20,9 +20,9 @@ public class CapacityDto {
 
     @NotBlank(message = "La descripción es obligatoria")
     @Size(max = 90, message = "La descripción no puede superar 90 caracteres")
-    @Schema(description = "Descripción de la capacidad", example = "Capacidad orientada a desarrollo backend con Java")
+    @Schema(description = "Descripción de la capacidad", example = "Capacidad enfocada en desarrollo backend con Java")
     private String description;
 
-    @Schema(description = "Listado de IDs de las tecnologias asociadas")
+    @Schema(description = "Listado de IDs de las tecnologías asociadas")
     private List<Long> technologyIds;
 }

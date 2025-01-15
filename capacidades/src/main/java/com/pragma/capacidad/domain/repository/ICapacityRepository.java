@@ -13,7 +13,6 @@ public interface ICapacityRepository {
 
     Flux<Capacity> findAllOrderByNameAsc(Pageable pageable);
     Flux<Capacity> findAllOrderByNameDesc(Pageable pageable);
-
     Flux<Capacity> findAllOrderByTechCountAsc(Pageable pageable);
     Flux<Capacity> findAllOrderByTechCountDesc(Pageable pageable);
 
