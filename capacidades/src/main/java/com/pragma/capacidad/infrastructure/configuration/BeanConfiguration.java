@@ -4,6 +4,7 @@ import com.pragma.capacidad.application.mapper.CapacityMapper;
 import com.pragma.capacidad.application.usecase.CreateCapacityUseCase;
 import com.pragma.capacidad.application.usecase.ListCapacityUseCase;
 import com.pragma.capacidad.domain.repository.ICapacityRepository;
+import com.pragma.capacidad.infrastructure.client.TechnologyClient;
 import com.pragma.capacidad.infrastructure.db.CapacityRepositoryAdapter;
 import com.pragma.capacidad.infrastructure.db.repository.CapacityCrudRepository;
 import com.pragma.capacidad.infrastructure.db.repository.CapacityTechnologyCrudRepository;
@@ -22,8 +23,11 @@ public class BeanConfiguration {
     }
 
     @Bean
-    public CreateCapacityUseCase createCapacityUseCase(ICapacityRepository repository) {
-        return new CreateCapacityUseCase(repository);
+    public CreateCapacityUseCase createCapacityUseCase(
+            ICapacityRepository repository,
+            TechnologyClient technologyClient
+    ) {
+        return new CreateCapacityUseCase(repository, technologyClient);
     }
 
     @Bean

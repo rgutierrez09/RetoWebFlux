@@ -2,7 +2,12 @@ package com.pragma.capacidad.application.mapper;
 
 import com.pragma.capacidad.application.dto.CapacityDto;
 import com.pragma.capacidad.domain.model.Capacity;
+import com.pragma.capacidad.infrastructure.client.TechnologyClient;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
+
 
 @Component
 public class CapacityMapper {
@@ -15,7 +20,7 @@ public class CapacityMapper {
                 .id(dto.getId())
                 .name(dto.getName())
                 .description(dto.getDescription())
-                .technologyIds(dto.getTechnologyIds())
+                .technologyNames(dto.getTechnologyNames())
                 .build();
     }
 
@@ -27,7 +32,8 @@ public class CapacityMapper {
         dto.setId(domain.getId());
         dto.setName(domain.getName());
         dto.setDescription(domain.getDescription());
-        dto.setTechnologyIds(domain.getTechnologyIds());
+        dto.setTechnologyNames(domain.getTechnologyNames());
         return dto;
     }
 }
+

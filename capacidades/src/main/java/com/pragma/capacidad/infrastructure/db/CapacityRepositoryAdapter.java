@@ -12,6 +12,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class CapacityRepositoryAdapter implements ICapacityRepository {
@@ -30,11 +31,14 @@ public class CapacityRepositoryAdapter implements ICapacityRepository {
                 .flatMap(savedEntity -> {
                     Long capId = savedEntity.getId();
                     List<Long> techIds = capacity.getTechnologyIds();
-                    return Flux.fromIterable(techIds)
-                            .map(techId -> {
+                    List<String> techNames = capacity.getTechnologyNames();
+
+                    return Flux.range(0, techIds.size())
+                            .map(i -> {
                                 CapacityTechnologyEntity rel = new CapacityTechnologyEntity();
                                 rel.setCapacidadId(capId);
-                                rel.setTechnologyId(techId);
+                                rel.setTechnologyId(techIds.get(i));
+                                rel.setTechnologyName(techNames.get(i));
                                 return rel;
                             })
                             .collectList()
@@ -78,20 +82,25 @@ public class CapacityRepositoryAdapter implements ICapacityRepository {
         return capacityCrud.countCapacities();
     }
 
-    /**
-     * Une la entity con su lista de technologyIds y retorna el dominio.
-     */
     private Mono<Capacity> joinTechnologies(CapacityEntity entity) {
         return capTechCrud.findByCapacidadId(entity.getId())
-                .map(CapacityTechnologyEntity::getTechnologyId)
                 .collectList()
-                .map(techIds ->
-                        Capacity.builder()
-                                .id(entity.getId())
-                                .name(entity.getName())
-                                .description(entity.getDescription())
-                                .technologyIds(techIds)
-                                .build()
-                );
+                .map(techEntities -> {
+                    List<Long> techIds = techEntities.stream()
+                            .map(CapacityTechnologyEntity::getTechnologyId)
+                            .collect(Collectors.toList());
+
+                    List<String> techNames = techEntities.stream()
+                            .map(CapacityTechnologyEntity::getTechnologyName)
+                            .collect(Collectors.toList());
+
+                    return Capacity.builder()
+                            .id(entity.getId())
+                            .name(entity.getName())
+                            .description(entity.getDescription())
+                            .technologyIds(techIds)
+                            .technologyNames(techNames)
+                            .build();
+                });
     }
 }

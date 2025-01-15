@@ -12,4 +12,5 @@ public class Capacity {
     private String name;
     private String description;
     private List<Long> technologyIds;
+    private List<String> technologyNames;
 }

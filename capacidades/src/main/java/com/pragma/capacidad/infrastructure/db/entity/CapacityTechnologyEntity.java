@@ -8,4 +8,5 @@ import org.springframework.data.relational.core.mapping.Table;
 public class CapacityTechnologyEntity {
     private Long capacidadId;
     private Long technologyId;
+    private String technologyName;
 }

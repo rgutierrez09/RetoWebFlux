@@ -24,11 +24,11 @@ public class CapacityController {
     private final CapacityMapper capacityMapper;
 
     @Operation(
-            summary = "Registrar una nueva capacidad (HU3)",
-            description = "Registra una capacidad con un listado de tecnologías (mínimo 3, máximo 20).",
+            summary = "Registrar una nueva capacidad",
+            description = "Registra una capacidad con un listado de nombres de tecnologías.",
             responses = {
                     @ApiResponse(responseCode = "201", description = "Capacidad creada exitosamente"),
-                    @ApiResponse(responseCode = "400", description = "Error de validación o nombre duplicado"),
+                    @ApiResponse(responseCode = "400", description = "Error de validación"),
                     @ApiResponse(responseCode = "500", description = "Error interno del servidor")
             }
     )
@@ -36,10 +36,9 @@ public class CapacityController {
     @ResponseStatus(HttpStatus.CREATED)
     public Mono<CapacityDto> createCapacity(@Valid @RequestBody CapacityDto dto) {
         Capacity domainModel = capacityMapper.toDomain(dto);
-        return createCapacityUseCase.execute(domainModel)
+        return createCapacityUseCase.execute(domainModel, dto.getTechnologyNames())
                 .map(capacityMapper::toDto);
     }
-
     @Operation(
             summary = "Listar capacidades (HU4)",
             description = """

@@ -23,6 +23,6 @@ public class CapacityDto {
     @Schema(description = "Descripción de la capacidad", example = "Capacidad enfocada en desarrollo backend con Java")
     private String description;
 
-    @Schema(description = "Listado de IDs de las tecnologías asociadas")
-    private List<Long> technologyIds;
+    @Schema(description = "Listado de nombres de las tecnologías asociadas")
+    private List<String> technologyNames;
 }
