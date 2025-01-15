@@ -8,6 +8,7 @@ import reactor.core.publisher.Mono;
 public interface ITechnologyRepository {
     Mono<Technology> save(Technology technology);
     Mono<Boolean> existsByName(String name);
+    Mono<Technology> findByName(String name);
     Flux<Technology> findAllOrderedByNameAsc(Pageable pageable);
     Flux<Technology> findAllOrderedByNameDesc(Pageable pageable);
     Mono<Long> countTechnologies();

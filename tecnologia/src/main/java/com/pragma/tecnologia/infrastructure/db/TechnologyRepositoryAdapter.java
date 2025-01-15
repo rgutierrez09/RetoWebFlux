@@ -41,6 +41,17 @@ public class TechnologyRepositoryAdapter implements ITechnologyRepository {
                 .map(this::toTechnologyDomain);
     }
 
+
+    @Override
+    public Mono<Technology> findByName(String name) {
+        return repository.findByName(name)
+                .map(entity -> Technology.builder()
+                        .id(entity.getId())
+                        .name(entity.getName())
+                        .description(entity.getDescription())
+                        .build());
+    }
+
     @Override
     public Mono<Long> countTechnologies() {
         return repository.count();

@@ -6,8 +6,8 @@ import com.pragma.tecnologia.domain.model.Technology;
 import com.pragma.tecnologia.domain.repository.ITechnologyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
 import java.util.Arrays;
 
 @RequiredArgsConstructor
@@ -24,11 +24,10 @@ public class ListTechnologyUseCase {
         return repository.countTechnologies()
                 .flatMap(total -> {
                     int totalPages = (int) Math.ceil((double) total / size);
-                    Flux<Technology> technologies = "desc".equalsIgnoreCase(sortOrder) ?
-                            repository.findAllOrderedByNameDesc(pageRequest) :
-                            repository.findAllOrderedByNameAsc(pageRequest);
-
-                    return technologies.collectList()
+                    return ("desc".equalsIgnoreCase(sortOrder)
+                            ? repository.findAllOrderedByNameDesc(pageRequest)
+                            : repository.findAllOrderedByNameAsc(pageRequest))
+                            .collectList()
                             .map(content -> PagedResponseDto.<Technology>builder()
                                     .content(content)
                                     .pageNumber(page)
@@ -39,4 +38,8 @@ public class ListTechnologyUseCase {
                                     .build());
                 });
     }
+    public Mono<Technology> findByName(String name) {
+        return repository.findByName(name);
+    }
+
 }

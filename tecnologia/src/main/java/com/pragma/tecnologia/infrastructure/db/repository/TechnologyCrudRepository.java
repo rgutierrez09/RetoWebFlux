@@ -9,6 +9,7 @@ import reactor.core.publisher.Mono;
 
 public interface TechnologyCrudRepository extends ReactiveCrudRepository<TechnologyEntity, Long> {
     Mono<Boolean> existsByName(String name);
+    Mono<TechnologyEntity> findByName(String name);
 
     @Query("SELECT * FROM tecnologias ORDER BY name ASC LIMIT :#{#pageable.pageSize} OFFSET :#{#pageable.offset}")
     Flux<TechnologyEntity> findAllOrderedByNameAsc(Pageable pageable);
