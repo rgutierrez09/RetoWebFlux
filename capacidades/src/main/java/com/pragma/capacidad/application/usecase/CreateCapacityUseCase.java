@@ -5,6 +5,7 @@ import com.pragma.capacidad.domain.exception.InvalidCapacityException;
 import com.pragma.capacidad.domain.model.Capacity;
 import com.pragma.capacidad.domain.repository.ICapacityRepository;
 import com.pragma.capacidad.infrastructure.client.TechnologyClient;
+import com.pragma.capacidad.infrastructure.commons.Constants;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -20,29 +21,26 @@ public class CreateCapacityUseCase {
     private final TechnologyClient technologyClient;
 
     public Mono<Capacity> execute(Capacity capacity, List<String> technologyNames) {
-        // Validaciones de negocio
         if (technologyNames == null || technologyNames.isEmpty()) {
-            return Mono.error(new InvalidCapacityException("La capacidad debe incluir al menos 3 tecnologías"));
+            return Mono.error(new InvalidCapacityException(Constants.MINIMUM_TECHNOLOGIES));
         }
 
-        if (technologyNames.size() < 3 || technologyNames.size() > 20) {
-            return Mono.error(new InvalidCapacityException("La capacidad debe tener entre 3 y 20 tecnologías"));
+        if (technologyNames.size() < Constants.MIN_TECHNOLOGIES || technologyNames.size() > Constants.MAX_TECHNOLOGIES) {
+            return Mono.error(new InvalidCapacityException(Constants.TECHNOLOGIES_RANGE));
         }
 
         if (technologyNames.size() != new HashSet<>(technologyNames).size()) {
-            return Mono.error(new InvalidCapacityException("No se permiten nombres de tecnologías repetidos"));
+            return Mono.error(new InvalidCapacityException(Constants.DUPLICATE_CAPACITY_NAME));
         }
 
-        // Validar y obtener las tecnologías existentes
         return Flux.fromIterable(technologyNames)
                 .flatMap(technologyClient::getTechnologyByName)
                 .collectList()
                 .flatMap(technologies -> {
                     if (technologies.size() != technologyNames.size()) {
-                        return Mono.error(new InvalidCapacityException("Algunas tecnologías no existen en el sistema"));
+                        return Mono.error(new InvalidCapacityException(Constants.TECHNOLOGIES_NOT_FOUND));
                     }
 
-                    // Guardamos tanto IDs como nombres
                     capacity.setTechnologyIds(technologies.stream()
                             .map(tech -> tech.getId())
                             .collect(Collectors.toList()));
@@ -55,7 +53,7 @@ public class CreateCapacityUseCase {
                             .flatMap(exists -> {
                                 if (exists) {
                                     return Mono.error(new DuplicatedCapacityNameException(
-                                            "Ya existe una capacidad con el nombre: " + capacity.getName()
+                                            Constants.DUPLICATE_CAPACITY_NAME + capacity.getName()
                                     ));
                                 }
                                 return repository.save(capacity);

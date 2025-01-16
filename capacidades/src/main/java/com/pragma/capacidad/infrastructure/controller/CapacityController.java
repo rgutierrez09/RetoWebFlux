@@ -6,6 +6,7 @@ import com.pragma.capacidad.application.mapper.CapacityMapper;
 import com.pragma.capacidad.application.usecase.CreateCapacityUseCase;
 import com.pragma.capacidad.application.usecase.ListCapacityUseCase;
 import com.pragma.capacidad.domain.model.Capacity;
+import com.pragma.capacidad.infrastructure.commons.Constants;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/webflux/v1/capacidades")
+@RequestMapping(Constants.BASE_URL)
 @RequiredArgsConstructor
 public class CapacityController {
 
@@ -44,8 +45,8 @@ public class CapacityController {
             description = """
                     Retorna la lista de capacidades con paginación y orden.
                     Se puede ordenar asc/desc por:
-                     - nombre: usar ?sortBy=nombre&sortOrder=asc
-                     - techCount: usar ?sortBy=techCount&sortOrder=asc
+                     - nombre
+                     - techCount
                     """,
             responses = {
                     @ApiResponse(responseCode = "200", description = "Lista paginada de capacidades obtenida"),
@@ -56,8 +57,8 @@ public class CapacityController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public Mono<PagedResponseDto<CapacityDto>> listCapacities(
-            @RequestParam(defaultValue = "nombre") String sortBy,
-            @RequestParam(defaultValue = "asc") String sortOrder,
+            @RequestParam(defaultValue = Constants.NAME) String sortBy,
+            @RequestParam(defaultValue = Constants.DEFAULT_SORT_ASC) String sortOrder,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {

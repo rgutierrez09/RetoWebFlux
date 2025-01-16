@@ -1,0 +1,5 @@
+com\pragma\capacidad\application\usecase\CreateCapacityUseCaseTest.class
+com\pragma\capacidad\application\usecase\ListCapacityUseCaseTest.class
+com\pragma\capacidad\application\mapper\CapacityMapperTest.class
+com\pragma\capacidad\TecnologiaApplicationTests.class
+com\pragma\capacidad\infrastructure\controller\CapacityControllerTest.class

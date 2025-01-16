@@ -13,7 +13,7 @@ public class OpenApiConfig {
         return new OpenAPI()
                 .info(new Info()
                         .title("CAPACIDADES")
-                        .description("Microservicio para gestionar Capacidades (HU3, HU4)")
+                        .description("Microservicio para gestionar Capacidades")
                         .version("1.0.0")
                 );
     }

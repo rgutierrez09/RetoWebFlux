@@ -3,8 +3,11 @@ C:\Users\ronald.gutierrez_pra\Desktop\RetoWebFlux\capacidades\src\main\java\com\
 C:\Users\ronald.gutierrez_pra\Desktop\RetoWebFlux\capacidades\src\main\java\com\pragma\capacidad\infrastructure\configuration\BeanConfiguration.java
 C:\Users\ronald.gutierrez_pra\Desktop\RetoWebFlux\capacidades\src\main\java\com\pragma\capacidad\infrastructure\controller\CapacityController.java
 C:\Users\ronald.gutierrez_pra\Desktop\RetoWebFlux\capacidades\src\main\java\com\pragma\capacidad\application\dto\CapacityDto.java
+C:\Users\ronald.gutierrez_pra\Desktop\RetoWebFlux\capacidades\src\main\java\com\pragma\capacidad\application\dto\TechnologyDto.java
 C:\Users\ronald.gutierrez_pra\Desktop\RetoWebFlux\capacidades\src\main\java\com\pragma\capacidad\domain\exception\DuplicatedCapacityNameException.java
+C:\Users\ronald.gutierrez_pra\Desktop\RetoWebFlux\capacidades\src\main\java\com\pragma\capacidad\infrastructure\client\TechnologyClient.java
 C:\Users\ronald.gutierrez_pra\Desktop\RetoWebFlux\capacidades\src\main\java\com\pragma\capacidad\application\usecase\ListCapacityUseCase.java
+C:\Users\ronald.gutierrez_pra\Desktop\RetoWebFlux\capacidades\src\main\java\com\pragma\capacidad\infrastructure\commons\Constants.java
 C:\Users\ronald.gutierrez_pra\Desktop\RetoWebFlux\capacidades\src\main\java\com\pragma\capacidad\infrastructure\db\entity\CapacityTechnologyEntity.java
 C:\Users\ronald.gutierrez_pra\Desktop\RetoWebFlux\capacidades\src\main\java\com\pragma\capacidad\domain\model\Capacity.java
 C:\Users\ronald.gutierrez_pra\Desktop\RetoWebFlux\capacidades\src\main\java\com\pragma\capacidad\infrastructure\db\repository\CapacityCrudRepository.java
@@ -16,4 +19,5 @@ C:\Users\ronald.gutierrez_pra\Desktop\RetoWebFlux\capacidades\src\main\java\com\
 C:\Users\ronald.gutierrez_pra\Desktop\RetoWebFlux\capacidades\src\main\java\com\pragma\capacidad\infrastructure\configuration\OpenApiConfig.java
 C:\Users\ronald.gutierrez_pra\Desktop\RetoWebFlux\capacidades\src\main\java\com\pragma\capacidad\infrastructure\db\entity\CapacityEntity.java
 C:\Users\ronald.gutierrez_pra\Desktop\RetoWebFlux\capacidades\src\main\java\com\pragma\capacidad\application\usecase\CreateCapacityUseCase.java
+C:\Users\ronald.gutierrez_pra\Desktop\RetoWebFlux\capacidades\src\main\java\com\pragma\capacidad\infrastructure\configuration\WebClientConfig.java
 C:\Users\ronald.gutierrez_pra\Desktop\RetoWebFlux\capacidades\src\main\java\com\pragma\capacidad\application\dto\PagedResponseDto.java
