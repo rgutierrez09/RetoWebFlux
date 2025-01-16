@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 public class TechnologyDto {
 
-    @Schema(description = "Identificador unico de la tecnologia", example = "1")
+    @Schema(description = "Identificador único de la capacidad (autogenerado)", example = "1", accessMode = Schema.AccessMode.READ_ONLY)
     private Long id;
 
     @NotBlank(message = Constants.NAME_REQUIRED)

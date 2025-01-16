@@ -5,50 +5,45 @@ import com.pragma.tecnologia.domain.model.Technology;
 import com.pragma.tecnologia.domain.repository.ITechnologyRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.MockitoAnnotations;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension.class)
 class CreateTechnologyUseCaseTest {
 
     @Mock
     private ITechnologyRepository repository;
 
+    @InjectMocks
     private CreateTechnologyUseCase useCase;
 
     @BeforeEach
     void setUp() {
-        useCase = new CreateTechnologyUseCase(repository);
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    void execute_Success() {
+    void whenCreateTechnology_thenSuccess() {
         Technology technology = Technology.builder()
                 .name("Java")
                 .description("Programming Language")
                 .build();
 
-        Technology savedTechnology = Technology.builder()
-                .id(1L)
-                .name("Java")
-                .description("Programming Language")
-                .build();
-
         when(repository.existsByName("Java")).thenReturn(Mono.just(false));
-        when(repository.save(technology)).thenReturn(Mono.just(savedTechnology));
+        when(repository.save(any(Technology.class))).thenReturn(Mono.just(technology));
 
         StepVerifier.create(useCase.execute(technology))
-                .expectNext(savedTechnology)
+                .expectNext(technology)
                 .verifyComplete();
     }
 
     @Test
-    void execute_DuplicatedName() {
+    void whenCreateDuplicatedTechnology_thenError() {
         Technology technology = Technology.builder()
                 .name("Java")
                 .description("Programming Language")
